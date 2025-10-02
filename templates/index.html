@@ -1,80 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ToDo App</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background-color: #ffffff; }
-    .btn-orange { background-color: #ff7f50; color: white; }
-    .btn-orange:hover { background-color: #ff5722; }
-    .navbar { background-color: #ff7f50; }
-    .navbar-brand, .nav-link { color: white !important; }
-    .hero {
-      background: linear-gradient(135deg, #ff7f50, #ff5722);
-      color: white;
-      padding: 100px 20px;
-      text-align: center;
-    }
-    .features .icon {
-      font-size: 2rem;
-      color: #ff7f50;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartToDo - ToDo Manager</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font (Standard Google font choice) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; } 
+
+        /* Custom Keyframes for Fade-In Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Utility class for application */
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Specific delays for sequencing */
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-600 { animation-delay: 0.6s; }
+    </style>
+    <!-- Tailwind Custom Config for Color Palette -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'coral-main': '#ff7f50', // Main Color
+                        'coral-dark': '#ff5722', // Darker for hover
+                        'coral-light': '#ffe8e0', // Light background accent
+                        'coral-ring': '#ff7f5080', // Coral with opacity for focus ring
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="min-h-screen flex flex-col">
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">ToDo App</a>
-      <div>
-        <a class="nav-link" href="/login">Login</a>
-        <a class="nav-link" href="/register">Register</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero section -->
-  <section class="hero">
-    <div class="container">
-      <h1 class="display-4 fw-bold">Organize your tasks with ease</h1>
-      <p class="lead">Simple, fast, and powerful ToDo manager built on FastAPI.</p>
-      <div class="mt-4">
-        <a href="/login" class="btn btn-light btn-lg me-2">Login</a>
-        <a href="/register" class="btn btn-orange btn-lg">Register</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="features py-5">
-    <div class="container">
-      <div class="row text-center">
-        <div class="col-md-4">
-          <div class="icon mb-3">✅</div>
-          <h5>Track tasks</h5>
-          <p>Easily add, edit, and mark your tasks as done.</p>
+    <!-- Navbar (Легкий і чистий, як у додатках Google) -->
+    <nav class="bg-white shadow-md animate-fade-in">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <!-- Логотип/Акцент -->
+                    <div class="w-2 h-8 bg-coral-main rounded-full mr-3 hidden sm:block"></div>
+                    <a class="text-3xl font-extrabold text-gray-800 tracking-tight" href="/">SmartToDo</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a class="text-gray-600 hover:text-coral-main transition duration-150 font-medium" href="/login">Увійти</a>
+                    <a class="bg-coral-main hover:bg-coral-dark text-white font-medium px-5 py-2 rounded-full transition duration-150 shadow-lg hover:shadow-xl transform hover:scale-[1.02]" href="/register">
+                        Реєстрація
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-          <div class="icon mb-3">🔒</div>
-          <h5>Secure</h5>
-          <p>Your data is protected with modern authentication.</p>
-        </div>
-        <div class="col-md-4">
-          <div class="icon mb-3">⚡</div>
-          <h5>Fast</h5>
-          <p>Powered by FastAPI for maximum performance.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- Footer -->
-  <footer class="text-center py-4" style="background:#f8f9fa;">
-    <p class="mb-0">© 2025 ToDo App | Built with FastAPI + Bootstrap</p>
-  </footer>
+    <!-- Hero Section (Максимально чистий простір та фокус на заклику до дії) -->
+    <section class="flex-grow py-20 md:py-32 bg-white animate-fade-in delay-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+            
+            <!-- Текстовий блок -->
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+                <!-- Акцентний колір для ключового слова -->
+                <h1 class="text-6xl md:text-7xl font-light leading-tight text-gray-900 mb-6">
+                    Організуйте свої <span class="font-extrabold text-coral-main">задачі</span> легко
+                </h1>
+                <p class="text-xl text-gray-500 mb-8 max-w-lg mx-auto md:mx-0">
+                    Простий, швидкий та потужний ToDo менеджер, створений на базі FastAPI.
+                </p>
+                
+                <!-- Кнопки дій -->
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="/login" class="px-8 py-3 text-lg font-semibold border-2 border-coral-main text-coral-main rounded-full hover:bg-coral-light transition duration-150 shadow-md transform hover:scale-[1.02]">
+                        Вхід
+                    </a>
+                    <a href="/register" class="px-8 py-3 text-lg font-semibold bg-coral-main text-white rounded-full hover:bg-coral-dark transition duration-150 shadow-xl shadow-coral-main/50 transform hover:scale-[1.02]">
+                        Реєстрація
+                    </a>
+                </div>
+            </div>
+
+            <!-- Візуальний елемент (Placeholder або імітація UI) -->
+            <div class="md:w-1/2 flex justify-center p-4 animate-fade-in delay-400">
+                <div class="w-full max-w-md h-72 bg-coral-light/50 rounded-3xl shadow-2xl p-6 flex items-center justify-center border-4 border-coral-main/70">
+                    <div class="text-center text-coral-dark text-2xl font-bold opacity-70">
+                        Ваш ідеальний ToDo список тут
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Features (Чистий, картковий дизайн) -->
+    <section class="py-16 bg-gray-50 animate-fade-in delay-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-normal text-center text-gray-800 mb-12">Чому обирають CoralFlow?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Feature Card 1: Track Tasks -->
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition duration-300 border-t-4 border-coral-main/80 transform hover:-translate-y-1">
+                    <div class="text-4xl text-coral-main mb-4">
+                        <span aria-hidden="true">✅</span>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Відстежуйте задачі</h5>
+                    <p class="text-gray-500">Легко додавайте, редагуйте та позначайте завдання як виконані в інтуїтивно зрозумілому інтерфейсі.</p>
+                </div>
+                
+                <!-- Feature Card 2: Secure -->
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition duration-300 border-t-4 border-coral-main/80 transform hover:-translate-y-1">
+                    <div class="text-4xl text-coral-main mb-4">
+                        <span aria-hidden="true">🔒</span>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Надійно та безпечно</h5>
+                    <p class="text-gray-500">Ваші дані захищені за допомогою сучасної системи автентифікації та захищеного API.</p>
+                </div>
+                
+                <!-- Feature Card 3: Fast -->
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition duration-300 border-t-4 border-coral-main/80 transform hover:-translate-y-1">
+                    <div class="text-4xl text-coral-main mb-4">
+                        <span aria-hidden="true">⚡</span>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Блискавична швидкість</h5>
+                    <p class="text-gray-500">Ми використовуємо FastAPI, щоб гарантувати максимальну продуктивність і миттєве оновлення.</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Мінімалістичний) -->
+    <footer class="bg-white border-t border-gray-100 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm text-gray-500 mb-0">
+                © 2025 CoralFlow App. Всі права захищені.
+            </p>
+        </div>
+    </footer>
 
 </body>
 </html>
