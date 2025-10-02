@@ -1,6 +1,7 @@
 from fastapi import Request
 from starlette.responses import Response
 
+
 async def log_requests(request: Request, call_next):
     print(f"Incoming request: {request.method} {request.url}")
     response: Response = await call_next(request)

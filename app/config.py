@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 
+
 class Settings(BaseSettings):
     APP_NAME: str = "ToDo App"
     DB_URL: str = "sqlite:///./todo.db"

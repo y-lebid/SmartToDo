@@ -11,5 +11,6 @@ bcrypz
 email-validator==2.2.0
 aiofiles==24.1.0
 websockets==13.1
+
 jinja2
 cryptography

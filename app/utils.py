@@ -7,6 +7,7 @@ from app.database import SessionLocal
 from app import models
 from app.config import settings
 
+
 # --- Password hashing ---
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
